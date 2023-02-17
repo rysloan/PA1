@@ -29,10 +29,8 @@ private var etLastName: EditText? = null
 
 private var imageThumbnail: ImageView? = null
 
-//Define a bitmap
 private var mThumbnailImage: Bitmap? = null
 
-//Define a global intent variable
 private var mDisplayIntent: Intent? = null
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -40,16 +38,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Get the buttons
         ButtonSubmit = findViewById<View>(R.id.submitButton) as Button
         ButtonCamera = findViewById<View>(R.id.cameraButton) as Button
         imageThumbnail = findViewById<View>(R.id.cameraImage) as ImageView
 
-        //Say that this class itself contains the listener.
         ButtonSubmit!!.setOnClickListener(this)
         ButtonCamera!!.setOnClickListener(this)
 
-        //Create the intent but don't start the activity yet
         mDisplayIntent = Intent(this, DisplayActivity::class.java)
     }
 
@@ -57,7 +52,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (p0 != null) {
             when (p0.id){
                 R.id.submitButton -> {
-                    //Get Names From Edit Texts
                     etFirstName = findViewById<View>(R.id.firstName) as EditText
                     etMiddleName = findViewById<View>(R.id.middleName) as EditText
                     etLastName = findViewById<View>(R.id.lastName) as EditText
@@ -77,12 +71,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 R.id.cameraButton -> {
 
-                    //The button press should open a camera
                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     try {
                         cameraLauncher.launch(cameraIntent)
                     } catch (ex: ActivityNotFoundException) {
-                        //Do something here
+
                     }
                 }
 
@@ -108,14 +101,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         etLastName = findViewById<View>(R.id.lastName) as EditText
         imageThumbnail = findViewById<View>(R.id.cameraImage) as ImageView
 
-
-        //Get the strings
         sFirstName = etFirstName!!.text.toString()
         sMiddleName = etMiddleName!!.text.toString()
         sLastName = etLastName!!.text.toString()
 
-
-        //Put them in the outgoing Bundle
         outState.putString("FN_TEXT", sFirstName)
         outState.putString("MN_TEXT", sMiddleName)
         outState.putString("LN_TEXT", sLastName)
@@ -125,10 +114,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
 
-        //Restore the view hierarchy automatically
         super.onRestoreInstanceState(savedInstanceState)
 
-        //Restore stuff
         etFirstName!!.setText(savedInstanceState.getString("FN_TEXT"))
         etMiddleName!!.setText(savedInstanceState.getString("MN_TEXT"))
         etLastName!!.setText(savedInstanceState.getString("LN_TEXT"))
